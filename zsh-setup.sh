@@ -1,9 +1,9 @@
-# !/bin/sh
+#!/bin/sh
 
 # Check to see if ZSH is already installed.
 if ! [ -d "$HOME/.oh-my-zsh" ]; then
     echo "Oh-my-zsh is not installed, installing now."
-    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh 2> /dev/null && {
+    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh 2>/dev/null && {
         echo "Oh-my-zsh installed!"
     }
 
@@ -51,15 +51,16 @@ fi
 
 # Download syntax highlighting
 echo "Downloading syntax highlighting now!"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 2>/dev/null
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME"/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 # Download autosuggestions
 echo "Downloading autosuggestions now!"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 2>/dev/null
-
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 tempFile=$(mktemp)
-sed -E "s?^plugins=\((.*)\)?\plugins=(\1 zsh-autosuggestions zsh-syntax-highlighting)?" "$HOME"/.zshrc > "$tempFile"
-cat "$tempFile" > "$HOME"/.zshrc
-rm $tempFile
+sed -E "s?^plugins=\((.*)\)?\plugins=(\1 zsh-autosuggestions zsh-syntax-highlighting)?" "$HOME"/.zshrc >"$tempFile"
+cat "$tempFile" >"$HOME"/.zshrc
+rm "$tempFile"
 echo "Oh-my-zsh and plugins successfully installed. Please close and reopen your shell to observe the changes."
+
+
